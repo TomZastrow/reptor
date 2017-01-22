@@ -1,0 +1,15 @@
+<div style="float:right;padding:5px;">
+<img src="images/dinosaur_small.png" />
+</div>
+<p>
+Reptor is a PHP application which turns a webserver into a data repository. It demonstrates the functionality of a modern data repository along the recommendations of the Research Data Alliance (RDA).
+</p>
+<p>
+All data is stored in an arbitrary filesystem or a part of it. Only a PHP enabled webserver with access to this filesysytem is necessary to run Reptor. 
+</p>
+<p>
+More detailed information can be found in the manual (see subfolder below or browse  on <a href="https://github.com/TomZastrow/reptor/tree/master/data/Documentation/Manual">GitHub</a>).
+</p>
+<p>
+The Reptor software can be found on <a href="https://github.com/TomZastrow/reptor">GitHub</a>.
+</p>

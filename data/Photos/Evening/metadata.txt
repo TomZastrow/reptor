@@ -1,0 +1,9 @@
+Here you can fotos of sun dawns:
+
+<ul>
+<li>Resolution: 300 DPI</li>
+<li>Color depth: 24 Bit</li>
+<li>Camera: Nikon D3100</li>
+<li>No Flash</li>
+<li>Sizes: 1024x683</li>
+</ul>
