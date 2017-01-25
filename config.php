@@ -11,7 +11,7 @@ $template = "default";
 $showEvaluation=true;
 $showAdminLogin=true;
 
-$showMissingParts=true;
+$showMissingParts=false;
 
 
 $repositoryTitle = "RDA Data Repository";

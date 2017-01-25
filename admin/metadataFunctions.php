@@ -7,7 +7,7 @@ function getFolderList() {
         $thisUrl = "http" . (!empty($_SERVER['HTTPS']) ? "s" : "") . "://" . $_SERVER['SERVER_NAME'];
         $scriptPath = realpath(dirname(__FILE__));
         $objects = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($fileSystemPath), RecursiveIteratorIterator::SELF_FIRST);
-        $result = "{";
+        $result = "{ \"0\" : \"/data\",";
         $counter = 0;
         foreach ($objects as $name => $object) {
             if (is_dir($name)) {
@@ -15,7 +15,7 @@ function getFolderList() {
                 if (!endsWithChar($name, ".")) {
                     $name = str_replace($fileSystemPath, "", $name);
                     $name = str_replace("\\", "/", $name);
-                    $result = $result . "\"" . $counter . "\" : \"" . $name . "\", ";
+                    $result = $result . "\"" . $counter . "\" : \"/data" . $name . "\", ";
                 }
             }
         }
@@ -28,7 +28,7 @@ function getFolderList() {
 }
 // ------------- Metadata - Plain
 function getMetadataPlain($path) {
-    $theFile = "../data" . $path . "/metadata.txt";
+    $theFile = ".." . $path . "/metadata.txt";
     $result = "";
     if (file_exists($theFile)) {
         $result = file_get_contents($theFile);
@@ -45,7 +45,7 @@ function saveMetadataPlain($path) {
 }
 // ------------- Metadata - Types
 function getMetadataTypes($path) {
-    $theFile = "../data" . $path . "/metadata.types";
+    $theFile = ".." . $path . "/metadata.types";
     $result = "";
     if (file_exists($theFile)) {
         $result = file_get_contents($theFile);
@@ -65,7 +65,7 @@ function saveMetadataTypes($path) {
 
 
 function getMetadataDC($path) {
-    $theFile = "../data" . $path . "/metadata.dc";
+    $theFile = ".." . $path . "/metadata.dc";
     $result = "RESULT: " . $theFile;
     if (file_exists($theFile)) {
         $dcFile = parse_ini_file($theFile);
@@ -87,7 +87,7 @@ function saveMetadataDC($path) {
 // ------------- Metadata - Collections
 
 function getCollectionItems($path) {
-    $theFile = "../data" . $path . "/collection.txt";
+    $theFile = ".." . $path . "/collection.txt";
     $result = "";
     if (file_exists($theFile)) {
         $result = file_get_contents($theFile);
