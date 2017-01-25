@@ -18,6 +18,7 @@ under the License.
 -->
 <?php
 include('config.php');
+global $config;
 include('socialMedia.php');
 include('generalFunctions.php');
 ?>
@@ -26,11 +27,11 @@ include('generalFunctions.php');
         <link rel="stylesheet" href="templates/bootstrap/css/bootstrap.min.css">
         <script src="templates/bootstrap/js/bootstrap.min.js"></script>
         <script src="js/jquery.min.js"></script>
-        <title><?php echo "$repositoryTitle"; ?></title>
+        <title><?php echo $config['repositoryTitle']; ?></title>
     </head>
     <body style="background-color: grey;">
         <?php
-        if ($showFacebookLikeButton) {
+        if ($config['showFacebookLikeButton']) {
             echo getFacebookSDK();
         }
         ?>
@@ -44,12 +45,12 @@ include('generalFunctions.php');
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#"><?php echo "$repositoryTitle"; ?></a>
+                    <a class="navbar-brand" href="#"><?php echo $config['repositoryTitle']; ?></a>
                 </div>
                 <div id="navbar" class="collapse navbar-collapse">
                     <ul class="nav navbar-nav">
                         <?php
-                        if ($showAdminLogin) {
+                        if ($config['showAdminLogin']) {
                             echo "<li><a href='admin/'>Admin</a></li>";
                         }
                         ?>
@@ -102,15 +103,15 @@ include('generalFunctions.php');
                                 array_push($dirs, $entry);
                             }
                         } else if (!startsWithChar($entry, ".")) {
-                            if ($entry == $nameMetadataText) {
+                            if ($entry == $config['nameMetadataText']) {
                                 $metadataText = file_get_contents($toCheck);
-                            } else if ($entry == $namePIDFile) {
+                            } else if ($entry == $config['namePIDFile']) {
                                 $pid = file_get_contents($toCheck);
-                            } else if ($entry == $namesDataTypes) {
+                            } else if ($entry == $config['namesDataTypes']) {
                                 $datatypes = file($toCheck, FILE_IGNORE_NEW_LINES);
-                            } else if ($entry == $nameDCFile) {
+                            } else if ($entry == $config['nameDCFile']) {
                                 $dublinCore = parse_ini_file($toCheck);
-                            } else if ($entry == $nameCollectionItems) {
+                            } else if ($entry == $config['nameCollectionItems']) {
                                 $collectionItems = file($toCheck, FILE_IGNORE_NEW_LINES);
                             } else {
                                 array_push($files, $entry);
@@ -140,7 +141,7 @@ include('generalFunctions.php');
                      * Do we have metadata in plain text:
                      */
                     if ($metadataText == "") {
-                        if ($showMissingParts) {
+                        if ($config['showMissingParts']) {
                             echo "<div  class='panel panel-danger'>";
                             echo "<div class='panel-heading'>Metadata - plain text</div>\n";
                             echo "<div class='panel-body'>No Metadata available here.</div></div>";
@@ -156,7 +157,7 @@ include('generalFunctions.php');
                      * Do we have Dublin Core:
                      */
                     if (sizeof($dublinCore) == 0) {
-                        if ($showMissingParts) {
+                        if ($config['showMissingParts']) {
                             echo "<div  class='panel panel-danger'>";
                             echo "<div class='panel-heading'>Metadata - Dublin Core</div>\n";
                             echo "<div class='panel-body'>No Dublin Core entries.</div></div>";
@@ -177,7 +178,7 @@ include('generalFunctions.php');
                      * Do we have Collection Items:
                      */
                     if (sizeof($collectionItems) == 0) {
-                        if ($showMissingParts) {
+                        if ($config['showMissingParts']) {
                             echo "<div  class='panel panel-danger'>";
                             echo "<div class='panel-heading'>Metadata - Collection items</div>\n";
                             echo "<div class='panel-body'>There are no collection items here.</div></div>";
@@ -198,7 +199,7 @@ include('generalFunctions.php');
                      * Do we have data registry entries:
                      */
                     if (sizeof($datatypes) == 0) {
-                        if ($showMissingParts) {
+                        if ($config['showMissingParts']) {
                             echo "<div  class='panel panel-danger'>";
                             echo "<div class='panel-heading'>Metadata - Data Types</div>\n";
                             echo "<div class='panel-body'>No datatypes declared here.</div></div>";
@@ -208,17 +209,17 @@ include('generalFunctions.php');
                         echo "<div class='panel-heading'>Metadata - Data Types</div>\n";
                         echo "<div class='panel-body'>\n";
                         foreach ($datatypes as $type) {
-                            $content = @file_get_contents($dataTypeRegistry . $type);
+                            $content = @file_get_contents($config['dataTypeRegistry'] . $type);
                             if ($content === false) {
-                                echo "<strong>Can' resolve:</strong> $dataTypeRegistry$type <hr/>";
+                                echo "<strong>Can' resolve:</strong>" . $config['dataTypeRegistry'] . "$type <hr/>";
                             } else {
                                 $content = json_decode($content);
                                 echo "<strong>Name:</strong> " . $content->{'name'};
                                 echo "<br>\n";
                                 echo "<strong>Content:</strong> " . $content->{'description'};
                                 echo "<br>\n";
-                                echo "<strong>Identifier:</strong>$dataTypeRegistry$type</br></br>  \n";
-                                echo "<a href='$dataTypeRegistry$type'><button class=\"btn btn-primary\">Go to definition</button></a><br/>\n";
+                                echo "<strong>Identifier:</strong>" . $config['dataTypeRegistry'] . "$type</br></br>  \n";
+                                echo "<a href='" . $config['dataTypeRegistry'] . "$type'><button class=\"btn btn-primary\">Go to definition</button></a><br/>\n";
                                 echo "<hr>\n";
                             }
                         }
@@ -230,7 +231,7 @@ include('generalFunctions.php');
                      * Do we have a PID:
                      */
                     if ($pid == "") {
-                        if ($showMissingParts) {
+                        if ($config['showMissingParts']) {
                             echo "<div  class='panel panel-danger'>";
                             echo "<div class='panel-heading'>Persistent Identifier</div>\n";
                             echo "<div class='panel-body'>No PID available on this level: add a file <i> $namePIDFile </i>with a PID!</div></div>";
@@ -303,13 +304,13 @@ include('generalFunctions.php');
                      * Social Media:
                      */
                     echo '<div style="margin-bottom:20px;">';
-                    if ($showFacebookLikeButton) {
+                    if ($config['showFacebookLikeButton']) {
                         $thisUrl = "http" . (!empty($_SERVER['HTTPS']) ? "s" : "") . "://" . $_SERVER['SERVER_NAME'] . $_SERVER['SCRIPT_NAME'];
                         $thisUrl = $thisUrl . "?path=$verb";
                         echo getFacebookLikeButton($thisUrl);
                     }
 
-                    if ($showTwitterButton) {
+                    if ($config['showTwitterButton']) {
                         echo getTwitterButton();
                     }
 
@@ -318,7 +319,7 @@ include('generalFunctions.php');
                     /*
                      * This is the validation for PID, metadata and bitstreams:
                      */
-                    if ($showEvaluation) {
+                    if ($config['showEvaluation']) {
                         echo "<div style='margin-bottom:5px;margin-top:10px;' class='greyBox'>";
                         echo '<div class="panel panel-default">';
                         echo '<div class="panel-body">';

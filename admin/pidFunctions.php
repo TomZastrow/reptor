@@ -19,10 +19,11 @@ under the License.
 
 <?php
 include('../generalFunctions.php');
+include('../config.php');
 
 function getPIDLackingFolders() {
     $fileSystemPath = realpath('../data');
-
+    global $config;
     try {
         $thisUrl = "http" . (!empty($_SERVER['HTTPS']) ? "s" : "") . "://" . $_SERVER['SERVER_NAME'];
         $scriptPath = realpath(dirname(__FILE__));
@@ -34,7 +35,7 @@ function getPIDLackingFolders() {
             if (is_dir($name)) {
                 $counter = $counter + 1;
                 if (!endsWithChar($name, ".")) {
-                    if (!file_exists($name . "/pid.txt")) {
+                    if (!file_exists($name . "/" . $config['namePIDFile'])) {
                         $name = str_replace($fileSystemPath, "", $name);
 
                         $name = str_replace("\\", "/", $name);
@@ -83,7 +84,7 @@ function createShortrefPID() {
         fwrite($pidfile, "\n");
         fclose($pidfile);
 
-        fwrite($logfile, $results->{'handle'} . " written to: " . $data->{'path'} . "/pid.txt\n");
+        fwrite($logfile, $results->{'handle'} . " written to: " . $data->{'path'} . "/" . $config['namePIDFile'] . "\n");
 
         $s = $results->{'handle'} . " was created. Remember the token: " . $results->{'token'};
     }

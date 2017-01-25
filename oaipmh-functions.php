@@ -21,12 +21,13 @@ under the License.
 
 function identify($thisUrl) {
     include('config.php');
+    global $config;
     echo "<request verb='Identify'>$thisUrl</request>\n";
     echo "<Identify>\n";
-    echo " <repositoryName>$repositoryTitle</repositoryName>\n";
+    echo " <repositoryName>" . $config['repositoryTitle'] ."</repositoryName>\n";
     echo " <baseURL>$thisUrl</baseURL>\n";
     echo " <protocolVersion>2.0</protocolVersion>\n";
-    echo " <adminEmail>$repositoryEmail</adminEmail>\n";
+    echo " <adminEmail>" . $config['repositoryEmail'] . "</adminEmail>\n";
     echo " <earliestDatestamp>1970-01-01</earliestDatestamp>\n";
     echo " <deletedRecord>no</deletedRecord>\n";
     echo " <granularity>YYYY-MM-DD</granularity>\n";

@@ -47,7 +47,7 @@ under the License.
                         data: formData,
                         type: 'POST',
                         success: function (result) {
-                            alert(result);
+                            alert("The file was uploaded succcessful.");
                         }
                    
                 });
@@ -76,6 +76,7 @@ under the License.
                                 .fail(function (data) {
                                     console.log('fail');
                                     console.log(data);
+                                    alert("Sorry it was not possible to create the folder: " + data)
                                 });
                     } // else: checking empty textfield
                 });

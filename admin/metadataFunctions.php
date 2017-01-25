@@ -1,5 +1,7 @@
 <?php
 include('../generalFunctions.php');
+include('../config.php');
+
 // ------------- Generic function for getting the folders:
 function getFolderList() {
     $fileSystemPath = realpath('../data');
@@ -28,7 +30,8 @@ function getFolderList() {
 }
 // ------------- Metadata - Plain
 function getMetadataPlain($path) {
-    $theFile = ".." . $path . "/metadata.txt";
+    global $config;
+    $theFile = ".." . $path . "/" . $config['nameMetadataText'];
     $result = "";
     if (file_exists($theFile)) {
         $result = file_get_contents($theFile);
@@ -36,7 +39,8 @@ function getMetadataPlain($path) {
     return $result;
 }
 function saveMetadataPlain($path) {
-    $path = "../data" . $path . "/metadata.txt";
+    global $config;
+    $path = ".." . $path . "/" . $config['nameMetadataText'];
     $theText = $_POST['Text'];
     $theFile = fopen($path, "w");
     fwrite($theFile, $theText);
@@ -45,7 +49,8 @@ function saveMetadataPlain($path) {
 }
 // ------------- Metadata - Types
 function getMetadataTypes($path) {
-    $theFile = ".." . $path . "/metadata.types";
+    global $config;
+    $theFile = ".." . $path . "/" . $config['namesDataTypes'];
     $result = "";
     if (file_exists($theFile)) {
         $result = file_get_contents($theFile);
@@ -53,7 +58,8 @@ function getMetadataTypes($path) {
     return $result;
 }
 function saveMetadataTypes($path) {
-    $path = "../data" . $path . "/metadata.types";
+    global $config;
+    $path = ".." . $path . "/" . $config['namesDataTypes'];
     $theText = $_POST['Text'];
     $theFile = fopen($path, "w");
     fwrite($theFile, $theText);
@@ -65,7 +71,8 @@ function saveMetadataTypes($path) {
 
 
 function getMetadataDC($path) {
-    $theFile = ".." . $path . "/metadata.dc";
+    global $config;
+    $theFile = ".." . $path . "/" . $config['nameDCFile'];
     $result = "RESULT: " . $theFile;
     if (file_exists($theFile)) {
         $dcFile = parse_ini_file($theFile);
@@ -74,7 +81,8 @@ function getMetadataDC($path) {
     return $result;
 }
 function saveMetadataDC($path) {
-    $path = "../data" . $path . "/metadata.dc";
+    global $config;
+    $path = ".." . $path . "/" . $config['nameDCFile'];
     $data = json_decode($_POST['json']);
     $theFile = fopen($path, "w");
     foreach ($data as $key => $value) {
@@ -87,7 +95,8 @@ function saveMetadataDC($path) {
 // ------------- Metadata - Collections
 
 function getCollectionItems($path) {
-    $theFile = ".." . $path . "/collection.txt";
+    global $config;
+    $theFile = ".." . $path .  "/" . $config['nameCollectionItems'];
     $result = "";
     if (file_exists($theFile)) {
         $result = file_get_contents($theFile);
@@ -96,7 +105,8 @@ function getCollectionItems($path) {
 }
 
 function saveCollectionItems($path) {
-    $path = "../data" . $path . "/collection.txt";
+    global $config;
+    $path = ".." . $path . "/" . $config['nameCollectionItems'];
     $theText = $_POST['Text'];
     $theFile = fopen($path, "w");
     fwrite($theFile, $theText);
