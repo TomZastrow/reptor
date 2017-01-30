@@ -1,0 +1,4 @@
+AuthType Basic
+AuthName "Access denied"
+AuthUserFile .htpasswd
+Require valid-user
