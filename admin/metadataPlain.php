@@ -29,7 +29,14 @@ under the License.
                     $.each(data, function (key, value) {
                         mySelect.append($('<option></option>').val(key).html(value));
                     });
-                });
+                })
+
+                var url = window.location.href;
+                baseUrl = url + $(this).find('option:selected').text();
+                baseUrl = baseUrl.replace("admin/metadataPlain.php", "index.php?path=/data");
+                $("#selectedFolder").text(baseUrl);
+                $("#selectedPath").text("/data");
+                ;
 
                 $("#onExecute").click(function () {
                     theText = $("#metadataPlain").val();

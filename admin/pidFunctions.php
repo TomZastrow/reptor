@@ -35,12 +35,12 @@ function getPIDLackingFolders() {
             if (is_dir($name)) {
                 $counter = $counter + 1;
                 if (!endsWithChar($name, ".")) {
-                    if (!file_exists($name . "/" . $config['namePIDFile'])) {
+                    //if (!file_exists($name . "/" . $config['namePIDFile'])) {
                         $name = str_replace($fileSystemPath, "", $name);
 
                         $name = str_replace("\\", "/", $name);
                         $result = $result . "\"" . $counter . "\" : \"" . $name . "\", ";
-                    }
+                    //}
                 }
             }
         }

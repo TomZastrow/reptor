@@ -27,7 +27,7 @@ include('../config.php');
         <title><?php echo "$repositoryTitle"; ?></title>
     </head>
     <body style="background-color: grey;">
-   <?php include('navigation.php'); ?>
+        <?php include('navigation.php'); ?>
 
         <div class="container" style="margin-top:60px;">
             <div class="starter-template">
@@ -37,6 +37,18 @@ include('../config.php');
                     <div  class='panel panel-info'>
                         <div class='panel-heading'>Admin </div>
                         <div class='panel-body'>
+
+                            <div  class='panel panel-danger'>
+                                <div class='panel-heading'>Warning!</div>
+                                <div class='panel-body'>Reptor does not contain a user management currently.
+                                <br /><br />
+                                <strong>This is the Admin panel.</strong>
+                                <br /><br />
+                                So please make sure that this folder is secured by the webserver!
+                                If you are using Apache Webserver, you will find here a <a href="https://www.digitalocean.com/community/tutorials/how-to-use-the-htaccess-file">tutorial</a> about securing a folder.
+                                </div>
+                            </div>
+
                             <h3>PID Management</h3>
                             <ul>
                                 <li><a href="shortref.php">Shortref.org</a></li>
@@ -49,7 +61,7 @@ include('../config.php');
                                 <li><a href="metadataTypes.php">Data Type Registry</a></li>
                                 <li><a href="collections.php">Collections</a></li>
                             </ul>
-                            
+
                             <h3>Object Data</h3>
                             <ul>
                                 <li><a href="filesAndFolders.php">Files and Folders</a></li>
