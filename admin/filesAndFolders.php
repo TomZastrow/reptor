@@ -24,13 +24,20 @@ under the License.
         <script src="../js/jquery.min.js"></script>
         <script>
             $(document).ready(function () {
-                
+
                 $.getJSON("metadataFunctions.php?verb=getFolderList", function (data) {
                     var mySelect = $('#combobox');
                     $.each(data, function (key, value) {
                         mySelect.append($('<option></option>').val(key).html(value));
                     });
-                });
+                })
+                var url = window.location.href;
+                baseUrl = url + $(this).find('option:selected').text();
+                baseUrl = baseUrl.replace("admin/filesAndFolders.php", "index.php?path=/data");
+                $("#selectedFolder").text(baseUrl);
+                $("#selectedPath").text("/data");
+
+                ;
 
                 $("#onUploadFile").click(function () {
                     var theFile = $('#fileToUpload').prop('files')[0];
@@ -49,8 +56,8 @@ under the License.
                         success: function (result) {
                             alert("The file was uploaded succcessful.");
                         }
-                   
-                });
+
+                    });
                 });
 
                 $("#onCreateSubfolder").click(function () {
@@ -93,7 +100,7 @@ under the License.
         </script>
     </head>
     <body style="background-color: grey;">
-      <?php include('navigation.php'); ?>
+        <?php include('navigation.php'); ?>
 
         <div class="container" style="margin-top:60px;">
 

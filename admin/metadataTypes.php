@@ -30,7 +30,15 @@ under the License.
                     $.each(data, function (key, value) {
                         mySelect.append($('<option></option>').val(key).html(value));
                     });
-                });
+                })
+
+                var url = window.location.href;
+                baseUrl = url + $(this).find('option:selected').text();
+                baseUrl = baseUrl.replace("admin/metadataTypes.php", "index.php?path=/data");
+                $("#selectedFolder").text(baseUrl);
+                $("#selectedPath").text("/data");
+
+                ;
 
                 $("#onExecute").click(function () {
                     theText = $("#metadataTypes").val();
@@ -63,13 +71,13 @@ under the License.
 
                     baseUrl = url + $(this).find('option:selected').text();
                     baseUrl = baseUrl.replace("admin/metadataTypes.php", "index.php?path=");
- 
+
                     $("#selectedFolder").text(baseUrl);
                     $("#selectedPath").text($(this).find('option:selected').text());
 
                     $.ajax({
                         type: 'GET',
-                        url: 'metadataFunctions.php?verb=getMetadataTypes&path=' + $(this).find('option:selected').text(),                     
+                        url: 'metadataFunctions.php?verb=getMetadataTypes&path=' + $(this).find('option:selected').text(),
                         dataType: 'text'
                     })
                             .done(function (data) {
