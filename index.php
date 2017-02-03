@@ -295,8 +295,8 @@ include('generalFunctions.php');
                     echo "<div  class='panel panel-info'>";
                     echo "<div class='panel-heading'>Announcements</div>\n";
                     echo "<div class='panel-body'>\n";
-                    echo "<a href='oai.php?verb=GetRecord&metadataPrefix=oai_dc&identifier=$verb'><button class=\"btn btn-primary\">OAI-PMH</button></a>\n";
-                    echo "<a href='resourceSync.php'><button class=\"btn btn-primary\">ResourceSync</button></a>\n";
+                    echo "<a href='oai.php?verb=GetRecord&metadataPrefix=oai_dc&identifier=$verb'><button class=\"btn btn-primary\"><span class=\"glyphicon glyphicon-globe\" aria-hidden=\"true\"></span> OAI-PMH</button></a>\n";
+                    echo "<a href='resourceSync.php'><button class=\"btn btn-primary\"><span class=\"glyphicon glyphicon-globe\" aria-hidden=\"true\"> ResourceSync</button></a>\n";
                     echo "<br /><br />\n";
 
 
