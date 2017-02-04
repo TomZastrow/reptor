@@ -22,21 +22,13 @@ under the License.
         <link rel="stylesheet" href="../templates/bootstrap/css/bootstrap.min.css">
         <script src="../templates/bootstrap/js/bootstrap.min.js"></script>
         <script src="../js/jquery.min.js"></script>
+        <script src="js/adminFunctions.js"></script>
         <script>
             $(document).ready(function () {
-                $.getJSON("metadataFunctions.php?verb=getFolderList", function (data) {
-                    var mySelect = $('#combobox');
-                    $.each(data, function (key, value) {
-                        mySelect.append($('<option></option>').val(key).html(value));
-                    });
-                })
-
-                var url = window.location.href;
-                baseUrl = url + $(this).find('option:selected').text();
-                baseUrl = baseUrl.replace("admin/metadataPlain.php", "index.php?path=/data");
-                $("#selectedFolder").text(baseUrl);
-                $("#selectedPath").text("/data");
-                ;
+ 
+                loadFolderlist();
+                loadLables("metadataPlain.php", "/data");
+                loadData("/data", 'getMetadataPlain', "#metadataPlain");
 
                 $("#onExecute").click(function () {
                     theText = $("#metadataPlain").val();
@@ -53,7 +45,7 @@ under the License.
                         })
                                 .done(function (data) {
                                     console.log('done');
-                                    alert("Done: " + data);
+                                    alert("Done, metadata was saved.");
                                     console.log(data);
                                 })
                                 .fail(function (data) {
@@ -65,30 +57,9 @@ under the License.
                 });
 
                 $("#combobox").change(function () {
-                    var url = window.location.href;
-
-                    baseUrl = url + $(this).find('option:selected').text();
-                    baseUrl = baseUrl.replace("admin/metadataPlain.php", "index.php?path=");
-
-                    $("#selectedFolder").text(baseUrl);
-                    $("#selectedPath").text($(this).find('option:selected').text());
-
-                    $.ajax({
-                        type: 'GET',
-                        url: 'metadataFunctions.php?verb=getMetadataPlain&path=' + $(this).find('option:selected').text(),
-                        dataType: 'text'
-                    })
-                            .done(function (data) {
-                                console.log('done');
-                                $("#metadataPlain").val(data);
-                                console.log(data);
-                            })
-                            .fail(function (data) {
-                                console.log('fail');
-                                console.log(data);
-                            });
+                    loadLables("metadataPlain.php", $(this).find('option:selected').text());    
+                    loadData($(this).find('option:selected').text(), 'getMetadataPlain', "#metadataPlain");
                 });
-
             });
         </script>
     </head>

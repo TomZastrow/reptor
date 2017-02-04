@@ -23,23 +23,13 @@ under the License.
         <link rel="stylesheet" href="../templates/bootstrap/css/bootstrap.min.css">
         <script src="../templates/bootstrap/js/bootstrap.min.js"></script>
         <script src="../js/jquery.min.js"></script>
+        <script src="js/adminFunctions.js"></script>
         <script>
             $(document).ready(function () {
-                $.getJSON("metadataFunctions.php?verb=getFolderList", function (data) {
-                    var mySelect = $('#combobox');
-                    $.each(data, function (key, value) {
-                        mySelect.append($('<option></option>').val(key).html(value));
-                    });
-                })
-
-                var url = window.location.href;
-                baseUrl = url + $(this).find('option:selected').text();
-                baseUrl = baseUrl.replace("admin/metadataTypes.php", "index.php?path=/data");
-                $("#selectedFolder").text(baseUrl);
-                $("#selectedPath").text("/data");
-
-                ;
-
+                loadFolderlist();
+                loadLables("metadataTypes.php", "/data");
+                loadData("/data", 'getMetadataTypes', '#metadataTypes');
+                
                 $("#onExecute").click(function () {
                     theText = $("#metadataTypes").val();
                     if (theText == "") {
@@ -62,33 +52,11 @@ under the License.
                                     console.log('fail');
                                     console.log(data);
                                 });
-
                     } // else: checking empty textfields
                 });
-
                 $("#combobox").change(function () {
-                    var url = window.location.href;
-
-                    baseUrl = url + $(this).find('option:selected').text();
-                    baseUrl = baseUrl.replace("admin/metadataTypes.php", "index.php?path=");
-
-                    $("#selectedFolder").text(baseUrl);
-                    $("#selectedPath").text($(this).find('option:selected').text());
-
-                    $.ajax({
-                        type: 'GET',
-                        url: 'metadataFunctions.php?verb=getMetadataTypes&path=' + $(this).find('option:selected').text(),
-                        dataType: 'text'
-                    })
-                            .done(function (data) {
-                                console.log('done');
-                                $("#metadataTypes").val(data);
-                                console.log(data);
-                            })
-                            .fail(function (data) {
-                                console.log('fail');
-                                console.log(data);
-                            });
+                    loadLables("metadataTypes.php", $(this).find('option:selected').text());
+                    loadData($(this).find('option:selected').text(), 'getMetadataTypes', '#metadataTypes');
                 });
             });
         </script>

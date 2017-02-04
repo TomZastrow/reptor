@@ -22,27 +22,16 @@ under the License.
         <link rel="stylesheet" href="../templates/bootstrap/css/bootstrap.min.css">
         <script src="../templates/bootstrap/js/bootstrap.min.js"></script>
         <script src="../js/jquery.min.js"></script>
+        <script src="js/adminFunctions.js"></script>
         <script>
             $(document).ready(function () {
-                $("#dialog").hide();
-                
-                $.getJSON("metadataFunctions.php?verb=getFolderList", function (data) {
-                    var mySelect = $('#combobox');
-                    $.each(data, function (key, value) {
-                      mySelect.append($('<option></option>').val(key).html(value));
-                    });
-                })
-                        var url = window.location.href;
-                baseUrl = url + $(this).find('option:selected').text();
-                baseUrl = baseUrl.replace("admin/metadataDC.php", "index.php?path=/data");
-                $("#selectedFolder").text(baseUrl);
-                $("#selectedPath").text("/data");        
-        
-        ;
+                loadFolderlist();
+                loadLables("metadataDC.php", "/data");
+                loadData("/data");
 
                 $("#onExecute").click(function () {
                     theText = {};
-                    
+
                     $('input').each(function () {
                         var id = $(this).attr("id");
                         id = id.substring(2, id.length).toLowerCase();
@@ -75,12 +64,7 @@ under the License.
                 });
 
                 $("#combobox").change(function () {
-                    var url = window.location.href;
-                    baseUrl = url + $(this).find('option:selected').text();
-                    baseUrl = baseUrl.replace("admin/metadataDC.php", "index.php?path=");
-
-                    $("#selectedFolder").text(baseUrl);
-                    $("#selectedPath").text($(this).find('option:selected').text());
+                    loadLables("metadataDC.php", $(this).find('option:selected').text()); 
 
                     $("#dcTitle").val("");
                     $("#dcDescription").val("");
@@ -132,7 +116,7 @@ under the License.
         </script>
     </head>
     <body style="background-color: grey;">
-      <?php include('navigation.php'); ?>
+        <?php include('navigation.php'); ?>
 
         <div class="container" style="margin-top:60px;">
 
