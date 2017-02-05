@@ -1,4 +1,3 @@
-http://www.example.com/file1.dat
-123/abc
-vvvvvvvvvvvvv
+https://www.heise.de/foto/
+http://www.nikon.de
 

@@ -308,6 +308,7 @@ include('generalFunctions.php');
                         $thisUrl = "http" . (!empty($_SERVER['HTTPS']) ? "s" : "") . "://" . $_SERVER['SERVER_NAME'] . $_SERVER['SCRIPT_NAME'];
                         $thisUrl = $thisUrl . "?path=$verb";
                         echo getFacebookLikeButton($thisUrl);
+                        echo "&nbsp;";
                     }
 
                     if ($config['showTwitterButton']) {
