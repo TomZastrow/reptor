@@ -29,7 +29,7 @@ under the License.
                 loadFolderlist();
                 loadLables("metadataTypes.php", "/data");
                 loadData("/data", 'getMetadataTypes', '#metadataTypes');
-                
+
                 $("#onExecute").click(function () {
                     theText = $("#metadataTypes").val();
                     if (theText == "") {
@@ -65,6 +65,10 @@ under the License.
         <?php include('navigation.php'); ?>
 
         <div class="container" style="margin-top:60px;">
+
+            <ol class="breadcrumb">
+                <li><a href="index.php">Admin Home</a></li>
+            </ol>
 
             <div  class='panel panel-info'>
                 <div class='panel-heading'>Metadata - Data Type Registry</div>

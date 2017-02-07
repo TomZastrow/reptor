@@ -56,7 +56,7 @@ under the License.
                 });
 
                 $("#combobox").change(function () {
-                                       loadLables("metadataTypes.php", $(this).find('option:selected').text());
+                    loadLables("metadataTypes.php", $(this).find('option:selected').text());
                     loadData($(this).find('option:selected').text(), 'getCollectionItems', '#collectionItems');
                 });
 
@@ -67,7 +67,9 @@ under the License.
         <?php include('navigation.php'); ?>
 
         <div class="container" style="margin-top:60px;">
-
+            <ol class="breadcrumb">
+                <li><a href="index.php">Admin Home</a></li>
+            </ol>
             <div  class='panel panel-info'>
                 <div class='panel-heading'>Metadata - Collections</div>
                 <div class='panel-body'>

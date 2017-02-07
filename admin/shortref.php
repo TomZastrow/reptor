@@ -13,7 +13,7 @@
                         mySelect.append($('<option></option>').val(key).html(value));
                     });
                 })
-                
+
                 var url = window.location.href;
                 baseUrl = url + $(this).find('option:selected').text();
                 baseUrl = baseUrl.replace("admin/shortref.php", "index.php?path=/data");
@@ -72,6 +72,10 @@
     <body style="background-color: grey;">
         <?php include('navigation.php'); ?>
         <div class="container" style="margin-top:60px;">
+
+            <ol class="breadcrumb">
+                <li><a href="index.php">Admin Home</a></li>
+            </ol>
 
             <div  class='panel panel-info'>
                 <div class='panel-heading'>PID Management</div>

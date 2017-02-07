@@ -25,7 +25,7 @@ under the License.
         <script src="js/adminFunctions.js"></script>
         <script>
             $(document).ready(function () {
- 
+
                 loadFolderlist();
                 loadLables("metadataPlain.php", "/data");
                 loadData("/data", 'getMetadataPlain', "#metadataPlain");
@@ -57,7 +57,7 @@ under the License.
                 });
 
                 $("#combobox").change(function () {
-                    loadLables("metadataPlain.php", $(this).find('option:selected').text());    
+                    loadLables("metadataPlain.php", $(this).find('option:selected').text());
                     loadData($(this).find('option:selected').text(), 'getMetadataPlain', "#metadataPlain");
                 });
             });
@@ -66,6 +66,10 @@ under the License.
     <body style="background-color: grey;">
         <?php include('navigation.php'); ?>
         <div class="container" style="margin-top:60px;">
+
+            <ol class="breadcrumb">
+                <li><a href="index.php">Admin Home</a></li>
+            </ol>
 
             <div  class='panel panel-info'>
                 <div class='panel-heading'>Metadata - Plain Text</div>

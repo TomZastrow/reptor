@@ -64,7 +64,7 @@ under the License.
                 });
 
                 $("#combobox").change(function () {
-                    loadLables("metadataDC.php", $(this).find('option:selected').text()); 
+                    loadLables("metadataDC.php", $(this).find('option:selected').text());
 
                     $("#dcTitle").val("");
                     $("#dcDescription").val("");
@@ -119,6 +119,10 @@ under the License.
         <?php include('navigation.php'); ?>
 
         <div class="container" style="margin-top:60px;">
+
+            <ol class="breadcrumb">
+                <li><a href="index.php">Admin Home</a></li>
+            </ol>
 
             <div  class='panel panel-info'>
                 <div class='panel-heading'>Metadata - Dublin Core</div>

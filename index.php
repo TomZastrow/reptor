@@ -188,8 +188,16 @@ include('generalFunctions.php');
                         echo "<div class='panel-heading'>Collection Items</div>\n";
                         echo "<div class='panel-body'>\n";
                         echo "<table class=\"table table-striped\">\n";
+                        
+                        
                         foreach ($collectionItems as $item) {
-                            echo "<tr><td>$item</td></tr>\n";
+                            echo "<tr><td>\n";
+                            if(substr( $item, 0, 4 ) === "http" && $config['showColletionItemsAsLinks']){
+                            echo "<a href='" . $item . "'>" . $item . "</a>\n";    
+                            } else {
+                            echo "$item\n";
+                            }
+                            echo "</td></tr>\n";
                         }
                         echo "</table>\n";
                         echo "</div></div>\n";
@@ -308,7 +316,7 @@ include('generalFunctions.php');
                         $thisUrl = "http" . (!empty($_SERVER['HTTPS']) ? "s" : "") . "://" . $_SERVER['SERVER_NAME'] . $_SERVER['SCRIPT_NAME'];
                         $thisUrl = $thisUrl . "?path=$verb";
                         echo getFacebookLikeButton($thisUrl);
-                        echo "&nbsp;";
+                        echo "&nbsp;&nbsp;";
                     }
 
                     if ($config['showTwitterButton']) {

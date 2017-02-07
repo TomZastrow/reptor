@@ -13,6 +13,8 @@ $config['template'] = "default";
 $config['showEvaluation']=true;
 $config['showAdminLogin']=true;
 
+$config['showColletionItemsAsLinks'] = true;
+
 $config['showMissingParts']=false;
 
 $config['repositoryTitle'] = "RDA Data Repository";

@@ -34,18 +34,26 @@ include('../config.php');
 
                 <div class="myWrap">
 
+                    <ol class="breadcrumb">
+                        <li><a href="index.php">Admin Home</a></li>
+                    </ol>
+
+
                     <div  class='panel panel-info'>
                         <div class='panel-heading'>Admin </div>
                         <div class='panel-body'>
 
+
+
                             <div  class='panel panel-danger'>
                                 <div class='panel-heading'>Warning!</div>
                                 <div class='panel-body'>Reptor does not contain a user management currently.
-                                <br /><br />
-                                <strong>This is the Admin panel.</strong>
-                                <br /><br />
-                                So please make sure that this folder is secured by the webserver!
-                                If you are using Apache Webserver, you will find here a <a href="https://www.digitalocean.com/community/tutorials/how-to-use-the-htaccess-file">tutorial</a> about securing a folder.
+                                    <br /><br />
+                                    <strong>This is the Admin panel.</strong>
+                                    <br /><br />
+                                    So please make sure that this folder is secured by the webserver!
+                                    If you are using Apache Webserver, you will find here a <a href="https://www.digitalocean.com/community/tutorials/how-to-use-the-htaccess-file">tutorial</a> about securing a folder.
+                                    If you don't need the Admin Panel for manual adding and editing data, you can delete the admin folder at all.
                                 </div>
                             </div>
 

@@ -23,7 +23,7 @@ under the License.
         <script src="../templates/bootstrap/js/bootstrap.min.js"></script>
         <script src="../js/jquery.min.js"></script>
         <script src="js/adminFunctions.js"></script>
-        
+
         <script>
             $(document).ready(function () {
                 loadFolderlist();
@@ -93,6 +93,9 @@ under the License.
         <?php include('navigation.php'); ?>
 
         <div class="container" style="margin-top:60px;">
+            <ol class="breadcrumb">
+                <li><a href="index.php">Admin Home</a></li>
+            </ol>
 
             <div  class='panel panel-info'>
                 <div class='panel-heading'>Files and Folders</div>
