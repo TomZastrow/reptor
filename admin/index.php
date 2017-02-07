@@ -18,13 +18,14 @@ under the License.
 -->
 <?php
 include('../config.php');
+global $config;
 ?>
 <html>
     <head>
         <link rel="stylesheet" href="../templates/bootstrap/css/bootstrap.min.css">
         <script src="../templates/bootstrap/js/bootstrap.min.js"></script>
         <script src="../js/jquery.min.js"></script>
-        <title><?php echo "$repositoryTitle"; ?></title>
+        <title>Admin - <?php echo $config['repositoryTitle']; ?></title>
     </head>
     <body style="background-color: grey;">
         <?php include('navigation.php'); ?>
