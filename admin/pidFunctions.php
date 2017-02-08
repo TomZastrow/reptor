@@ -21,6 +21,7 @@ under the License.
 include('../generalFunctions.php');
 include('../config.php');
 
+
 function getPIDLackingFolders() {
     $fileSystemPath = realpath('../data');
     global $config;
@@ -56,7 +57,7 @@ function getPIDLackingFolders() {
 function createShortrefPID() {
     $data = json_decode($_POST['json']);
 
-    $url = 'https://lindat.mff.cuni.cz/services/shortener/api/v1/handles';
+    $url = $config['shortrefUrl'];
 
     $options = array(
         'http' => array(
@@ -79,7 +80,7 @@ function createShortrefPID() {
     } else {
         $results = json_decode($result);
 
-        $pidfile = fopen("../data/" . $data->{'path'} . "/pid.txt", "a");
+        $pidfile = fopen("../data/" . $data->{'path'} . "/" . $config['namePIDFile'] , "a");
         fwrite($pidfile, $results->{'handle'});
         fwrite($pidfile, "\n");
         fclose($pidfile);

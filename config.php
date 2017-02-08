@@ -13,6 +13,8 @@ $config['template'] = "default";
 $config['showEvaluation']=true;
 $config['showAdminLogin']=true;
 
+$config['shortrefUrl'] = 'https://lindat.mff.cuni.cz/services/shortener/api/v1/handles';
+
 $config['showColletionItemsAsLinks'] = true;
 
 $config['showMissingParts']=false;

@@ -3,6 +3,7 @@
 function identify($thisUrl) {
     include('config.php');
     global $config;
+    
     echo "<request verb='Identify'>$thisUrl</request>\n";
     echo "<Identify>\n";
     echo " <repositoryName>" . $config['repositoryTitle'] ."</repositoryName>\n";
@@ -114,10 +115,10 @@ function getListRecords($thisUrl, $from, $set, $metadataPrefix, $onlyHeaders) {
     try {
         $objects = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($path, RecursiveDirectoryIterator::SKIP_DOTS), RecursiveIteratorIterator::CHILD_FIRST);
         foreach ($objects as $name => $object) {
-            if (is_dir($name) && file_exists($name . "/metadata.dc")) {
+            if (is_dir($name) && file_exists($name . $config['nameDCFile'])) {
 
                 echo "<record>\n";
-                $dcFile = $name . "/metadata.dc";
+                $dcFile = $name . $config['nameDCFile'];
 
                 $name = str_replace("/oai.php", '', $thisUrl) . str_replace($scriptPath, "", $name);
 

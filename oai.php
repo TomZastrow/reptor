@@ -6,6 +6,8 @@ header('Expires: -1');
 echo "<?xml version=\"1.0\" encoding=\"utf-8\"?>";
 
 include("oaipmh-functions.php");
+include("config.php");
+global $config;
 
 $verb = $_GET['verb'];
 $metadataPrefix = $_GET['metadataPrefix'];
@@ -15,8 +17,8 @@ $set = $_GET['set'];
 
 
 $datadir = "data" . $identifier;
-$dcFile = realpath($datadir . "metadata.dc");
-$dcFile = realpath(dirname(__FILE__)) . "/" . $datadir . "/metadata.dc";
+$dcFile = realpath($datadir . $config['nameDCFile']);
+$dcFile = realpath(dirname(__FILE__)) . "/" . $datadir . $config['nameDCFile'];
 $thisUrl = "http" . (!empty($_SERVER['HTTPS']) ? "s" : "") . "://" . $_SERVER['SERVER_NAME'] . $_SERVER['SCRIPT_NAME'];
 ?> 
 

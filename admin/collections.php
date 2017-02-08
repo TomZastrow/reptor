@@ -31,7 +31,7 @@ under the License.
 
                 $("#onExecute").click(function () {
                     theText = $("#collectionItems").val();
-                    if (theText == "") {
+                    if (theText === "") {
                         alert("Please enter items!");
                     } else {
                         // --- Calling the PHP script:  
