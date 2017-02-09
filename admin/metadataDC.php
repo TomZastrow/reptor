@@ -54,7 +54,7 @@ under the License.
                                 .done(function (data) {
                                     console.log('done');
                                     alert("Done: " + data);
-                                    console.log(data);
+                                    //console.log(data);
                                 })
                                 .fail(function (data) {
                                     console.log('fail');

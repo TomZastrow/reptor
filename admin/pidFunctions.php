@@ -55,8 +55,8 @@ function getPIDLackingFolders() {
 }
 
 function createShortrefPID() {
+    global $config;
     $data = json_decode($_POST['json']);
-
     $url = $config['shortrefUrl'];
 
     $options = array(

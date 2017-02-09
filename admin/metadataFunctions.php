@@ -86,7 +86,7 @@ function saveMetadataDC($path) {
     $data = json_decode($_POST['json']);
     $theFile = fopen($path, "w");
     foreach ($data as $key => $value) {
-        fwrite($theFile, $key . "=" . $value . "\n");
+        fwrite($theFile, $key . "=\"" . $value . "\"\n");
     }
     fclose($theFile);
     return "Dublin Core metadata saved in:  " . $path;
