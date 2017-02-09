@@ -80,7 +80,7 @@ function createShortrefPID() {
     } else {
         $results = json_decode($result);
 
-        $pidfile = fopen("../data/" . $data->{'path'} . "/" . $config['namePIDFile'] , "a");
+        $pidfile = fopen("../data" . $data->{'path'} . "/" . $config['namePIDFile'] , "a");
         fwrite($pidfile, $results->{'handle'});
         fwrite($pidfile, "\n");
         fclose($pidfile);
