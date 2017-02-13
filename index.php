@@ -87,6 +87,7 @@ include('generalFunctions.php');
                     $files = array();
                     $datatypes = array();
                     $dublinCore = array();
+                    $tacoProperties = array();
                     $collectionItems = array();
                     $metadataText = "";
                     $pid = "";
@@ -113,6 +114,9 @@ include('generalFunctions.php');
                                 $dublinCore = parse_ini_file($toCheck);
                             } else if ($entry == $config['nameCollectionItems']) {
                                 $collectionItems = file($toCheck, FILE_IGNORE_NEW_LINES);
+                            } else if ($entry == $config['nameTacoProperties']) {
+                                //$tacoProperties = parse_ini_file($toCheck);
+                                $tacoProperties = parseIniFile($toCheck);
                             } else {
                                 array_push($files, $entry);
                             }
@@ -173,6 +177,30 @@ include('generalFunctions.php');
                         echo "</table>\n";
                         echo "</div></div>\n";
                     }
+                    
+                    /*
+                     * Do we have Taco Properties:
+                     */
+                    if (sizeof($tacoProperties) == 0) {
+                        if ($config['showMissingParts']) {
+                            echo "<div  class='panel panel-danger'>";
+                            echo "<div class='panel-heading'>Metadata - Taco Properties</div>\n";
+                            echo "<div class='panel-body'>No Taco Properties.</div></div>";
+                        }
+                    } else {
+                        echo "<div  class='panel panel-success'>";
+                        echo "<div class='panel-heading'>Metadata - Taco Properties</div>\n";
+                        echo "<div class='panel-body'>\n";
+                        echo "<span class=\"label label-success\">Component: " . $tacoProperties['component'] . "</span>";
+                        echo "<table class=\"table table-striped\">\n";
+                        foreach ($tacoProperties as $key => $value) {
+                            echo "<tr><td>$key</td><td>$value</td></tr>\n";
+                        }
+                        echo "</table>\n";
+                        echo "</div></div>\n";
+                    }
+                    
+                    
 
                     /*
                      * Do we have Collection Items:

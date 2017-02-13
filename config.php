@@ -7,6 +7,7 @@ $config['namePIDFile'] = "pid.txt";
 $config['nameMetadataText'] = "metadata.txt";
 $config['namesDataTypes'] = "metadata.types";
 $config['nameDCFile'] = "metadata.dc";
+$config['nameTacoProperties'] = "metadata.properties";
 $config['nameCollectionItems'] = "collection.txt";
 
 $config['template'] = "default";
