@@ -1,2 +1,2 @@
 RewriteEngine On
-RewriteRule ^/collections/ index.php
+RewriteRule ^/api/ api.php
