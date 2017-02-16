@@ -1,4 +1,5 @@
 <?php
+
 $method = $_SERVER['REQUEST_METHOD'];
 
 $request = $_SERVER['REQUEST_URI'];
@@ -22,34 +23,39 @@ echo var_dump($rec) . "\n";
 
 $verb = "??";
 
-if(sizeof($rec) == 1 && $rec[0] == "collections"){
+if (sizeof($rec) == 1 && $rec[0] == "collections") {
     $verb = "GetListOfCollections";
 }
 
-if(sizeof($rec) > 1 && $rec[sizeof($rec)-1] ===  "members"){
-    if($method == "POST"){
+if (sizeof($rec) > 1 && $rec[sizeof($rec) - 1] === "members") {
+    if ($method == "POST") {
         $verb = "AddMember";
     }
-    if($method == "GET"){
+    if ($method == "GET") {
         $verb = "GetMembers";
     }
 }
 
-if(sizeof($rec) > 1 && $rec[sizeof($rec)-2] ===  "members" && $method == "DELETE" ){
+if (sizeof($rec) > 1 && $rec[sizeof($rec) - 2] === "members" && $method == "DELETE") {
     $verb = "DeleteMember";
 }
 
-if(sizeof($rec) > 1 && $rec[sizeof($rec)-2] !==  "members" && $rec[sizeof($rec)-1] !==  "members" && $method == "DELETE" ){
+if (sizeof($rec) > 1 && $rec[sizeof($rec) - 2] !== "members" && $rec[sizeof($rec) - 1] !== "members" && $method == "DELETE") {
     $verb = "DeleteCollection";
 }
 
-if(sizeof($rec) > 1 && $rec[sizeof($rec)-2] !==  "members" && $rec[sizeof($rec)-1] !==  "members" && $method == "POST" ){
+if (sizeof($rec) > 1 && $rec[sizeof($rec) - 2] !== "members" && $rec[sizeof($rec) - 1] !== "members" && $method == "POST") {
     $verb = "CreateCollection";
-	if (!file_exists($path)) {
-    mkdir($path, 0777, true);
-	touch($path . "/collection.txt");
-	echo "{\"success\" : \"Collection created\"}\n";
-}
+    if (!file_exists($path)) {
+        mkdir($path, 0777, true);
+        touch($path . "/collection.txt");
+        echo "{\"success\" : \"Collection created\"}\n";
+    } else if (!file_exists($path . "/collection.txt")) {
+        touch($path . "/collection.txt");
+        echo "{\"success\" : \"Collection created\"}\n";
+    } else if (file_exists($path . "/collection.txt")) {
+        echo "{\"error\" : \"Collection exists\"}\n";
+    }
 }
 
 echo "<br><br>Verb: $verb <br>\n";
