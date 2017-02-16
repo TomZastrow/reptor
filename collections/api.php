@@ -2,13 +2,23 @@
 $method = $_SERVER['REQUEST_METHOD'];
 
 $request = $_SERVER['REQUEST_URI'];
-$request = str_replace("/collections/api.php/", "", $request);
+
+$apipos = strpos($request, "api.php");
+$request = substr($request, $apipos, strlen($request));
+$request = str_replace("api.php/", "", $request);
 $request = rtrim($request, "/");
-echo "REQUEST: $request ---- \n";
+$request = ltrim($request, "/");
+
+echo "Request: $request \n";
+
+$path = str_replace("collections", "../data", $request);
+
+echo "Path: $path \n";
+
 
 $rec = split("/", $request);
 echo "REC: " . sizeof($rec) . "\n";
-echo var_dump($rec);
+echo var_dump($rec) . "\n";
 
 $verb = "??";
 
@@ -35,6 +45,11 @@ if(sizeof($rec) > 1 && $rec[sizeof($rec)-2] !==  "members" && $rec[sizeof($rec)-
 
 if(sizeof($rec) > 1 && $rec[sizeof($rec)-2] !==  "members" && $rec[sizeof($rec)-1] !==  "members" && $method == "POST" ){
     $verb = "CreateCollection";
+	if (!file_exists($path)) {
+    mkdir($path, 0777, true);
+	touch($path . "/collection.txt");
+	echo "{\"success\" : \"Collection created\"}\n";
+}
 }
 
-echo "<br><br>Verb: $verb";
+echo "<br><br>Verb: $verb <br>\n";
