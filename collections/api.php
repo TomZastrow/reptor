@@ -48,7 +48,7 @@ if (sizeof($rec) == 1 && $rec[0] == "collections") {
 
 // --- Dealing with members:
 if (sizeof($rec) > 1 && $rec[sizeof($rec) - 1] === "members") {
-    // --- Adding a new member to a collecltion: curl -X POST -d '{"id" : "abc"}'  http://localhost:8000/collections/api.php/collections/Photos/members
+    // --- Adding a new member to a collecltion: curl -X POST -d '{"id" : "abc"}'  http://localhost:8000/collections/api.php/collections/hPotos/members
     if ($method == "POST") {
         $postdata = file_get_contents("php://input");
         $data = json_decode($postdata, true);
