@@ -8,7 +8,7 @@ Reptor is a PHP application which turns a webserver into a data repository. It d
 All data is stored in an arbitrary filesystem or a part of it. Only a PHP enabled webserver with access to this filesysytem is necessary to run Reptor. 
 </p>
 <p>
-More detailed information can be found in the manual (see subfolder below or browse  on <a href="https://github.com/TomZastrow/reptor/tree/master/data/Documentation/Manual">GitHub</a>).
+More detailed information can be found on the <a href="http://reptor.thomas-zastrow.de">Homepage</a>.
 </p>
 <p>
 The Reptor software can be found on <a href="https://github.com/TomZastrow/reptor">GitHub</a>.
