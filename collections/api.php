@@ -33,16 +33,18 @@ $path = str_replace("collections", "../data", $path);
 // --- List of all collections: curl -X GET http://localhost:8000/collections/api.php/collections
 if (sizeof($rec) == 1 && $rec[0] == "collections") {
     $objects = new RecursiveIteratorIterator(new RecursiveDirectoryIterator("../data"), RecursiveIteratorIterator::SELF_FIRST);
-    $result = "";
+    $result = '{"contents" : [' . "\n";
 
     foreach ($objects as $name) {
         if (strpos($name->getPathname(), "collection.txt")) {
             $temp = str_replace("../data", "", $name);
             $temp = str_replace("collection.txt", "", $temp);
             $temp = str_replace("\\", "/", $temp);
-            $result = $result . $temp . "\n";
+            $result = $result . '{"id" : "' . $temp . "\"},\n";
         }
     }
+    
+    $result = rtrim(trim($result), ',') . "]}\n";
     echo "$result";
 }
 
@@ -75,7 +77,7 @@ if (sizeof($rec) > 1 && $rec[sizeof($rec) - 1] === "members") {
 
 // --- Delete a member: curl -X DELETE http://localhost:8000/collections/api.php/collections/Photos/members/123
 if (sizeof($rec) > 1 && $rec[sizeof($rec) - 2] === "members" && $method == "DELETE") {
-    $itemToDelete = $rec[sizeof($rec) - 1];
+    $itemToDelete = urldecode($rec[sizeof($rec) - 1]);
     $collectionFile = $path . "collection.txt";
     if (file_exists($collectionFile)) {
         $items = file($collectionFile, FILE_IGNORE_NEW_LINES);
@@ -99,7 +101,6 @@ if (sizeof($rec) > 1 && $rec[sizeof($rec) - 2] === "members" && $method == "DELE
 // --- Deleting a collection: curl -X DELETE http://localhost:8000/collections/api.php/collections/Photos/Winter/
 if (sizeof($rec) > 1 && $rec[sizeof($rec) - 2] !== "members" && $rec[sizeof($rec) - 1] !== "members" && $method == "DELETE") {
     $collectionFile = $path . "collection.txt";
-    echo "COLLFILE: " . $collectionFile;
     if (file_exists($collectionFile)) {
         unlink($collectionFile);
         echo "{\"success\" : \" Collection $collectionFile was successfully deleted\"}\n";
