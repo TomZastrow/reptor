@@ -23,7 +23,8 @@ function identify($thisUrl) {
 }
 
 function getRecord($identifier, $metadataPrefix, $thisUrl, $dcFile) {
-    echo "<request verb='$verb' identifier='$identifier' metadataPrefix='$metadataPrefix'>$thisUrl</request>\n";
+    $date = date("c", time());
+    echo "<request verb='GetRecord' identifier='$identifier' metadataPrefix='$metadataPrefix'>$thisUrl</request>\n";
     echo "<GetRecord>\n";
     echo "<record>\n";
     echo "<header>\n";
@@ -40,12 +41,13 @@ function getRecord($identifier, $metadataPrefix, $thisUrl, $dcFile) {
     echo "                http://www.openarchives.org/OAI/2.0/oai_dc.xsd'>\n";
 
     try {
+   
         if (file_exists($dcFile)) {
             $dublinCore = parse_ini_file($dcFile);
             foreach ($dublinCore as $key => $value) {
                 echo "<dc:$key>$value</dc:$key>\n";
             }
-        }
+        } 
     } catch (Exception $e) {
         echo 'Exception: ', $e->getMessage(), "\n";
     }

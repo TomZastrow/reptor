@@ -12,13 +12,16 @@ global $config;
 $verb = $_GET['verb'];
 $metadataPrefix = $_GET['metadataPrefix'];
 $identifier = $_GET['identifier'];
-$from = $_GET['from'];
+if (isset($_GET['from'])) {
+    $from = $_GET['from'];
+}
+if (isset($_GET['from'])) {
 $set = $_GET['set'];
-
+}
 
 $datadir = "data" . $identifier;
 $dcFile = realpath($datadir . $config['nameDCFile']);
-$dcFile = realpath(dirname(__FILE__)) . "/" . $datadir . $config['nameDCFile'];
+$dcFile = realpath(dirname(__FILE__)) . "/" . $datadir . "/" . $config['nameDCFile'];
 $thisUrl = "http" . (!empty($_SERVER['HTTPS']) ? "s" : "") . "://" . $_SERVER['SERVER_NAME'] . $_SERVER['SCRIPT_NAME'];
 ?> 
 
@@ -46,15 +49,14 @@ $thisUrl = "http" . (!empty($_SERVER['HTTPS']) ? "s" : "") . "://" . $_SERVER['S
     if ($verb == "ListSets") {
         getListSets($thisUrl);
     }
-    
-    if ($verb == "ListRecords"){
+
+    if ($verb == "ListRecords") {
         getListRecords($thisUrl, $from, $set, $metadataPrefix, false);
     }
-    
-        if ($verb == "ListIdentifiers"){
+
+    if ($verb == "ListIdentifiers") {
         getListRecords($thisUrl, $from, $set, $metadataPrefix, true);
     }
-    
     ?>
 </OAI-PMH> 
 

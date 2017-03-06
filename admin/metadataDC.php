@@ -39,7 +39,7 @@ under the License.
                         theText[id] = data;
                     });
 
-                    alert(JSON.stringify(theText));
+                   // alert(JSON.stringify(theText));
                     if (false) {
                         alert("Length:: " + Object.keys(theText).length);
                     } else {
@@ -53,7 +53,7 @@ under the License.
                         })
                                 .done(function (data) {
                                     console.log('done');
-                                    alert("Done: " + data);
+                                    alert("Done, Dublin Core Metadata was created.");
                                     //console.log(data);
                                 })
                                 .fail(function (data) {
