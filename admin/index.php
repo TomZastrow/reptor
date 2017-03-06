@@ -69,6 +69,7 @@ global $config;
                                 <li><a href="metadataDC.php">Dublin Core</a></li>
                                 <li><a href="metadataTypes.php">Data Type Registry</a></li>
                                 <li><a href="collections.php">Collections</a></li>
+                                <li><a href="metadataOverview.php">Overview</a></li>
                             </ul>
 
                             <h3>Object Data</h3>

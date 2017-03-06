@@ -75,9 +75,9 @@ under the License.
                                     console.log(data);
                                     alert("Sorry it was not possible to create the folder: " + data)
                                 });
-                                
-                                loadFolderlist();
-                loadLables("filesAndFolders.php", "/data")
+                        $("#combobox").empty();
+                        loadFolderlist();
+                        loadLables("filesAndFolders.php", "/data")
                     } // else: checking empty textfield
                 });
 

@@ -118,7 +118,12 @@ function saveCollectionItems($path) {
 // ---------------------------------
 // ---------- Anylizing the verbs:
 // ---------------------------------
-$verb = $_GET['verb'];
+
+$verb = "";
+if(isset($_GET['verb'])){
+    $verb = $_GET['verb'];
+}
+
 if ($verb == "getFolderList") {
     echo getFolderList();
 }
