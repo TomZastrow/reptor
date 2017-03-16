@@ -1,6 +1,7 @@
 <?php
 
 include("../generalFunctions.php");
+include("../config.php");
 
 $method = $_SERVER['REQUEST_METHOD'];
 $request = $_SERVER['REQUEST_URI'];
@@ -14,6 +15,7 @@ $request = ltrim($request, "/");
 
 $rec = explode("/", $request);
 $path = "";
+$datafile_name = $config['nameCollectionItems'];
 
 if ($rec[sizeof($rec) - 1] == "members") {
     for ($i = 0; $i < sizeof($rec) - 1; $i++) {
@@ -104,9 +106,9 @@ if (sizeof($rec) == 1 && $rec[0] == "collections" && $method == "GET") {
     $result = '{"contents" : [' . "\n";
 
     foreach ($objects as $name) {
-        if (strpos($name->getPathname(), "collection.txt")) {
+        if (strpos($name->getPathname(), $datafile_name)) {
             $temp = str_replace("../data", "", $name);
-            $temp = str_replace("collection.txt", "", $temp);
+            $temp = str_replace($datafile_name, "", $temp);
             $temp = str_replace("\\", "/", $temp);
             $temp = str_replace("/","",$temp);
             $obj = json_decode($COLLECTION_TEMPLATE);
@@ -126,7 +128,7 @@ if (sizeof($rec) > 1 && $rec[sizeof($rec) - 1] === "members") {
         $postdata = file_get_contents("php://input");
         $data = json_decode($postdata, true);
 
-        $collectionHandle = fopen($path . "/collection.txt", "a") or die("Unable to open file!");
+        $collectionHandle = fopen($path . "/" . $datafile_name, "a") or die("Unable to open file!");
         fwrite($collectionHandle, $data["id"] . "\n");
         fclose($collectionHandle);
         $obj = json_decode($CODE_TEMPLATE);
@@ -140,7 +142,7 @@ if (sizeof($rec) > 1 && $rec[sizeof($rec) - 1] === "members") {
     if ($method == "GET") {
         $temp = '{"contents" : [' . "\n";
         $index = 0;
-        foreach (file($path . "collection.txt") as $line) {
+        foreach (file($path . $datafile_name) as $line) {
             $line = trim($line);
             if(!$line == ""){
                 $obj = json_decode($MEMBER_TEMPLATE);
@@ -157,7 +159,7 @@ if (sizeof($rec) > 1 && $rec[sizeof($rec) - 1] === "members") {
 // --- Delete a member: curl -X DELETE http://localhost:8000/collections/api.php/collections/Photos/members/123
 if (sizeof($rec) > 1 && $rec[sizeof($rec) - 2] === "members" && $method == "DELETE") {
     $itemToDelete = urldecode($rec[sizeof($rec) - 1]);
-    $collectionFile = $path . "collection.txt";
+    $collectionFile = $path . $datafie_name;
     $obj = json_decode($CODE_TEMPLATE);
     if (file_exists($collectionFile)) {
         $items = file($collectionFile, FILE_IGNORE_NEW_LINES);
@@ -184,7 +186,7 @@ if (sizeof($rec) > 1 && $rec[sizeof($rec) - 2] === "members" && $method == "DELE
 
 // --- Deleting a collection: curl -X DELETE http://localhost:8000/collections/api.php/collections/Photos/Winter/
 if (sizeof($rec) > 1 && $rec[sizeof($rec) - 2] !== "members" && $rec[sizeof($rec) - 1] !== "members" && $method == "DELETE") {
-    $collectionFile = $path . "collection.txt";
+    $collectionFile = $path . $datafile_name;
     $obj = json_decode($CODE_TEMPLATE);
     if (file_exists($collectionFile)) {
         unlink($collectionFile);
@@ -208,14 +210,14 @@ if (sizeof($rec) == 1 && $rec[0] == "collections" && $method == "POST") {
     $obj = json_decode($CODE_TEMPLATE);
     if (!file_exists($path)) {
         mkdir($path, 0777, true);
-        touch($path . "/collection.txt");
+        touch($path . "/" . $datafile_name);
         $obj->{'code'} = 'success';
         $obj->{'message'} = "Collection $path created";
-    } else if (!file_exists($path . "/collection.txt")) {
-        touch($path . "/collection.txt");
+    } else if (!file_exists($path . "/" . $datafile_name)) {
+        touch($path . "/" . $datafile_name);
         $obj->{'code'} = 'success';
         $obj->{'message'} = "Collection $path created";
-    } else if (file_exists($path . "/collection.txt")) {
+    } else if (file_exists($path . "/" . $datafile_name)) {
         $obj->{'code'} = 'error';
         $obj->{'message'} = "Collection $path exists";
     }
