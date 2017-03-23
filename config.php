@@ -8,7 +8,8 @@ $config['nameMetadataText'] = "metadata.txt";
 $config['namesDataTypes'] = "metadata.types";
 $config['nameDCFile'] = "metadata.dc";
 $config['nameTacoProperties'] = "metadata.properties";
-$config['nameCollectionItems'] = "collection.txt";
+$config['nameCollectionItems'] = "members.json";
+$config['nameCollectionMetadata'] = "collection.json";
 
 $config['template'] = "default";
 $config['showEvaluation']=true;
