@@ -176,6 +176,36 @@ if (sizeof($rec) > 1 && $rec[sizeof($rec) - 1] === "members") {
     }
 }
 
+// --- Get a member: curl -X DELETE http://localhost:8000/collections/api.php/collections/Photos/members/123
+if (sizeof($rec) > 1 && $rec[sizeof($rec) - 2] === "members" && $method == "GET") {
+    $itemToGet = urldecode($rec[sizeof($rec) - 1]);
+    $collectionFile = $path . $member_file_name;
+    $obj = json_decode($CODE_TEMPLATE);
+    $obj->{'code'} = 'error';
+    $retrieved;
+    if (file_exists($collectionFile)) {
+        $json_str  = file_get_contents($path . $member_file_name) or die("Invalid collection");
+        $data = json_decode($json_str, true);
+        foreach ($data{'contents'} as $index=>$item) {
+            if ($item{'id'} == $itemToGet) {
+                $retrieved = $item;
+                $retrieved{'mappings'}{'index'} = $index;
+                break;
+            }
+        }
+        if ($retrieved) {
+            $result = json_encode($retrieved,JSON_PRETTY_PRINT);
+        } else {
+            $obj->{'message'} = "Member $itemToGet is not found in $collectionFile";
+            $result = json_encode($obj,JSON_PRETTY_PRINT);
+        }
+    } else {
+        $obj->{'message'} = "Collection $collectionFile does not exist";
+        $result = json_encode($obj,JSON_PRETTY_PRINT);
+    }
+    echo $result . "\n";
+}
+
 // --- Delete a member: curl -X DELETE http://localhost:8000/collections/api.php/collections/Photos/members/123
 if (sizeof($rec) > 1 && $rec[sizeof($rec) - 2] === "members" && $method == "DELETE") {
     $itemToDelete = urldecode($rec[sizeof($rec) - 1]);
@@ -211,7 +241,7 @@ if (sizeof($rec) > 1 && $rec[sizeof($rec) - 2] === "members" && $method == "DELE
     echo $result . "\n";
 }
 
-// --- Get a member of a collection : curl -X GET http://localhost:8000/collections/api.php/collections/{id}
+// --- Get a member of a collection : curl -X GET http://localhost:8000/collections/api.php/collections/{id}/members
 if (sizeof($rec) > 1 && $rec[sizeof($rec) - 2] !== "members" && $rec[sizeof($rec) - 1] !== "members" && $method == "GET") {
     $collectionFile = $path . $collection_file_name;
     if (file_exists($collectionFile)) {
