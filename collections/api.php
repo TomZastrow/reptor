@@ -1,4 +1,4 @@
-<?php
+ <?php
 
 include("../generalFunctions.php");
 include("../config.php");

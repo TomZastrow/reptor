@@ -113,7 +113,9 @@ include('generalFunctions.php');
                             } else if ($entry == $config['nameDCFile']) {
                                 $dublinCore = parse_ini_file($toCheck);
                             } else if ($entry == $config['nameCollectionItems']) {
-                                $collectionItems = file($toCheck, FILE_IGNORE_NEW_LINES);
+                                $collectionItems = file_get_contents($toCheck);
+                            } else if ($entry == $config['nameCollectionMetadata']) {
+                                $collectionMetadata = file_get_contents($toCheck);
                             } else if ($entry == $config['nameTacoProperties']) {
                                 //$tacoProperties = parse_ini_file($toCheck);
                                 $tacoProperties = parseIniFile($toCheck);
@@ -177,7 +179,7 @@ include('generalFunctions.php');
                         echo "</table>\n";
                         echo "</div></div>\n";
                     }
-                    
+
                     /*
                      * Do we have Taco Properties:
                      */
@@ -199,33 +201,92 @@ include('generalFunctions.php');
                         echo "</table>\n";
                         echo "</div></div>\n";
                     }
-                    
-                    
+
+
 
                     /*
                      * Do we have Collection Items:
                      */
-                    if (sizeof($collectionItems) == 0) {
+
+                    if (sizeof($collectionItems) == 0 || sizeof($collectionMetadata) == 0) {
                         if ($config['showMissingParts']) {
                             echo "<div  class='panel panel-danger'>";
-                            echo "<div class='panel-heading'>Metadata - Collection items</div>\n";
+                            echo "<div class='panel-heading'>Collection</div>\n";
                             echo "<div class='panel-body'>There are no collection items here.</div></div>";
                         }
                     } else {
                         echo "<div  class='panel panel-success'>";
-                        echo "<div class='panel-heading'>Collection Items</div>\n";
+                        echo "<div class='panel-heading'>Collection</div>\n";
                         echo "<div class='panel-body'>\n";
+
+
+
+                        $data = json_decode($collectionMetadata);
+                        
+                        echo "<h3>Collection Metadata</h3>\n";
                         echo "<table class=\"table table-striped\">\n";
-                        
-                        
-                        foreach ($collectionItems as $item) {
-                            echo "<tr><td>\n";
-                            if(substr( $item, 0, 4 ) === "http" && $config['showColletionItemsAsLinks']){
-                            echo "<a href='" . $item . "'>" . $item . "</a>\n";    
+
+                        foreach ($data as $key => $value) {
+                            echo "<tr>";
+                            if($key == "id"){
+                             echo    "<td><h4>" . $value . "</h4></td><td></td>";
                             } else {
-                            echo "$item\n";
+                            echo "<td><h4>" . $key . "</h4></td>";
+                            echo "<td>";
+                            foreach($value as $vkey => $vvalue){
+                                echo $vkey . ": " . $vvalue . "<br>\n";
                             }
-                            echo "</td></tr>\n";
+                            echo "<td>";
+                            }
+                            echo "</tr>";
+                        }
+
+                        echo "</table>\n";
+
+                        
+                        echo "<h3>Collection Members</h3>\n";
+                        echo "<table class=\"table table-striped\">\n";
+
+                        $data = json_decode($collectionItems);
+
+                        foreach ($data->{'contents'} as $item) {
+                            foreach ($item as $key => $value) {
+
+                                echo "<tr>\n";
+
+                                if ($key == "id") {
+                                    if (substr($value, 0, 4) === "http" && $config['showColletionItemsAsLinks']) {
+                                        echo "<td><a href='" . $value . "'><h4>" . $value . "</h4></a></td><td></td>";
+                                    } else {
+                                        echo "<td><h4>" . $value . "</h4></td>";
+                                    }
+                                } else if ($key == "mappings") {
+                                    echo "<td style='text-indent: 50px;'>" . $key . "</td><td>";
+                                    foreach ($value as $mkey => $mvalue) {
+                                        echo $mkey . ": " . $mvalue . "<br>\n";
+                                    }
+                                    echo "</td>\n";
+                                } else {
+                                    echo "<td style='text-indent: 50px;'>" . $key . "</td><td>" . $value . "</td>\n";
+                                }
+                                echo "</tr>\n";
+                            }
+
+
+
+
+//                            echo "<tr><td>\n";
+//                            
+//                            if(substr( $item, 0, 4 ) === "http" && $config['showColletionItemsAsLinks']){
+//                             echo "<a href='" . $item -> {'id'} . "'>" . $item -> {'id'} . "</a>\n";
+//                             
+//                            } else {
+//                              
+//                            echo $item -> {'id'};
+//                            }
+//                            echo "</td>";
+//                            
+//                            echo "</tr>\n";
                         }
                         echo "</table>\n";
                         echo "</div></div>\n";

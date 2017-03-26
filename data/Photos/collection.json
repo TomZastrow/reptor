@@ -1,0 +1,21 @@
+{
+    "id": "Photos",
+    "capabilities": {
+        "isOrdered": true,
+        "appendsToEnd": true,
+        "supportsRoles": false,
+        "membershipIsMutable": true,
+        "metadataIsMutable": true,
+        "restrictedToType": "",
+        "maxLength": -1
+    },
+    "properties": {
+        "ownership": "ReptorDemoUser",
+        "license": "https:\/\/creativecommons.org\/licenses\/by\/4.0\/",
+        "modelType": "https:\/\/github.com\/RDACollectionsWG\/Vocabulary\/SimpleCollection",
+        "hasAccessRestrictions": false,
+        "memberOf": [],
+        "descriptionOntology": ""
+    },
+    "description": []
+}
